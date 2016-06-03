@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Canvas</title>
+<style>
+#canvas,#canvas1{
+	border: 1px solid #666;
+	display: block;
+	position: absolute;
+    margin:auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 0;
+}
+#canvas{
+	z-index: 1;
+}
+</style>
+</head>
+<body>
+   <!-- 画布的大小只能通过 属性设置 不要用css -->
+   
+	<canvas id="canvas" width="600" height="600" strokeStyle="green"></canvas>
+	<canvas id="canvas1" width="600" height="600" ></canvas>
+
+<script>
+   var canvas=document.querySelector("#canvas");
+   var ctx=canvas.getContext("2d");
+
+
+   // ctx.beginPath();
+   // ctx.moveTo(0,0);
+   // ctx.lineTo(600,600);
+   // ctx.moveTo(600,0);
+   // ctx.lineTo(0,600);
+   // ctx.strokeStyle="green";
+   // ctx.stroke();
+   // ctx.closePath();
+
+   // ctx.beginPath();
+   // ctx.rect(250,50,100,100);
+   // ctx.fillStyle="green";
+   // ctx.fill();
+   // ctx.closePath();
+
+   // ctx.strokeRect(250,450,100,100);
+   
+   // ctx.beginPath();
+   // ctx.arc(50,250,50,0,(Math.PI/180)*90);
+   // ctx.fill();
+
+
+   // ctx.beginPath();
+   // ctx.moveTo(300,420);
+   // ctx.lineTo(300,350);
+   // ctx.moveTo(350,300);
+   // ctx.arc(300,300,50,0,(Math.PI/180)*360);
+  
+
+   // ctx.quadraticCurveTo(220,300,300,250);
+   // ctx.moveTo(300,350);
+   // ctx.bezierCurveTo(600,600,600,0,300,250)
+
+   // ctx.moveTo(300,250);
+   // ctx.lineTo(300,100);
+   // ctx.stroke();
+   // ctx.closePath();
+
+
+
+
+
+   // ctx.save();
+   // ctx.translate(300,300);
+   // ctx.beginPath();
+   // ctx.moveTo(0,0);
+   // ctx.lineTo(300,0);
+   // ctx.moveTo(0,0);
+   // ctx.lineTo(0,300);
+   // ctx.strokeStyle="red";
+   // ctx.lineWidth=5;
+   // ctx.stroke();
+   // ctx.closePath();
+   // ctx.restore();
+
+
+   // ctx.beginPath();
+   // ctx.moveTo(0,30);
+   // ctx.lineTo(30,30);
+   // ctx.stroke();
+   // ctx.closePath();
+
+   // ctx.save();
+   // ctx.translate(300,300);
+   // ctx.beginPath();
+   // for(var i=0;i<=12;i++){
+   // 	ctx.rotate((Math.PI/180)*30);
+   // 	ctx.moveTo(0,0);
+   // 	ctx.lineTo(0,-100);
+   // }
+   // ctx.stroke();
+   // ctx.closePath();
+   // ctx.restore();
+
+   function r(deg){
+   return (Math.PI/180)*deg;  
+   }
+   function shenglueqian(x,y){
+   ctx.save();
+   var x=x||300,y=y||300;
+   ctx.translate(x,y);
+   ctx.beginPath();
+   }
+   function shengluehou(s){
+   	if(s=='fill'){
+   	   ctx.fill();	
+   	}else{
+   	   ctx.stroke();
+   	}
+
+   ctx.closePath();
+   ctx.restore();
+   }
+
+   
+   // 表
+
+   function drawwatch(){
+   ctx.clearRect(0,0,600,600);
+
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.fillStyle="block";
+  ctx.font="35px serif";
+  ctx.fillText(12,280,180);
+  ctx.fillText(1,350,200);
+  ctx.fillText(2,400,240);
+  ctx.fillText(3,420,310);
+  ctx.fillText(4,400,380);
+  ctx.fillText(5,350,420);
+  ctx.fillText(6,290,435);
+  ctx.fillText(7,230,420);
+  ctx.fillText(8,180,380);
+  ctx.fillText(9,165,310);
+  ctx.fillText(10,180,240);
+  ctx.fillText(11,220,200);
+  ctx.closePath();
+  ctx.restore();
+
+
+
+   	 // 大圆
+   shenglueqian();
+   ctx.arc(0,0,170,0,r(360));
+   shengluehou();
+   // 小圆
+   shenglueqian();
+   ctx.arc(0,0,5,0,r(360));
+   shengluehou();
+
+   // 60个格子
+   shenglueqian();
+   for(var i=0;i<=60;i++){
+   if(i%5==0){
+   	   ctx.moveTo(0,-140);
+   }
+   else{
+   	   ctx.moveTo(0,-150);
+   	}
+   ctx.lineTo(0,-170);
+   ctx.rotate(r(6));
+   }
+   shengluehou();
+   
+   // 时
+   now=new Date();
+   var ms=now.getMilliseconds();
+  console.dir(now);
+   var s=now.getSeconds();
+   var m=now.getMinutes();
+   var h=now.getHours();
+   var deg=360*((s+m*60+h*3600)/(12*60*60));
+
+   shenglueqian();
+   ctx.rotate(r(deg));
+   ctx.lineWidth=7;
+   ctx.moveTo(0,-70);
+   ctx.lineTo(0,-5);
+   ctx.moveTo(0,20);
+   ctx.lineTo(0,5);
+   shengluehou();
+
+   // 分 
+   var deg=360*((m*60+s)/3600);
+   shenglueqian();
+   ctx.rotate(r(deg));
+   ctx.lineWidth=4;
+   ctx.moveTo(0,-120);
+   ctx.lineTo(0,-5);
+   ctx.moveTo(0,35);
+   ctx.lineTo(0,5);
+   shengluehou();
+
+   // 秒
+   var deg=360*((ms+s*1000)/60000);
+   shenglueqian();
+   ctx.rotate(r(deg));
+   ctx.lineWidth=2;
+   ctx.moveTo(0,-160);
+   ctx.lineTo(0,-5);
+   ctx.moveTo(0,50);
+   ctx.lineTo(0,5);
+   shengluehou();
+
+   }
+   drawwatch();
+   setInterval(drawwatch,12);
+
+
+function draw() {
+  var ctx1 = document.getElementById('canvas1').getContext('2d');
+
+  // 创建新 image 对象，用作图案
+  var img =new Image;
+  img.src = 'images/时钟.jpg';
+  window.onload = function(){
+    // 创建图案
+    var ptrn = ctx.createPattern(img,'no-repeat');
+    ctx1.fillStyle = ptrn;
+    ctx1.save();
+    ctx1.translate(-120,-200);
+    ctx1.fillRect(0,0,800,800);
+    ctx1.restore();
+  }
+
+}
+draw();
+
+
+
+
+
+
+
+
+
+
+
+// 镜像渐变
+
+// function draw() {
+//   var ctx = document.getElementById('canvas').getContext('2d');
+
+//   // 创建渐变
+//   var radgrad = ctx.createRadialGradient(45,45,10,52,50,30);
+//   radgrad.addColorStop(0, '#A7D30C');
+//   radgrad.addColorStop(0.9, '#019F62');
+//   radgrad.addColorStop(1, 'rgba(1,159,98,0)');
+  
+//   var radgrad2 = ctx.createRadialGradient(105,105,20,112,120,50);
+//   radgrad2.addColorStop(0, '#FF5F98');
+//   radgrad2.addColorStop(0.75, '#FF0188');
+//   radgrad2.addColorStop(1, 'rgba(255,1,136,0)');
+
+  
+//   // ctx.fillRect(0,0,150,150);
+//   ctx.fillStyle = radgrad2;
+//   ctx.fillRect(0,0,150,150);
+//   ctx.fillStyle = radgrad;
+//   ctx.fillRect(0,0,150,150);
+// }
+
+// draw();
+   // 五子棋盘
+
+   // shenglueqian(100,50);
+   // for(var i=0;i<375;i+=25){
+   // 	   ctx.moveTo(i,0);
+   //     ctx.lineTo(i,350);
+   // }
+   // shengluehou();
+
+   // shenglueqian(100,50);
+   // for(var i=0;i<375;i+=25){
+   // 	  ctx.moveTo(0,i);
+   // 	  ctx.lineTo(350,i);
+   // }
+   // shengluehou();
+
+   // shenglueqian(100,50);
+   // ctx.arc(75,75,4,0,r(360)); 
+   // ctx.moveTo(300,300); 
+   // ctx.arc(300,300,4,0,r(360));
+   // ctx.moveTo(75,300); 
+   // ctx.arc(75,300,4,0,r(360)); 
+   // ctx.moveTo(300,75); 
+   // ctx.arc(300,75,4,0,r(360));
+   // shengluehou('fill');
+  
+  
+
+// var offset = 0;
+
+// function draw() {
+//   ctx.clearRect(0,0, canvas.width, canvas.height);
+//   ctx.setLineDash([4, 2]);
+//   ctx.lineDashOffset = -offset;
+//   ctx.strokeRect(10,10, 100, 100);
+// }
+
+// function march() {
+//   offset++;
+//   if (offset > 16) {
+//     offset = 0;
+//   }
+//   draw();
+//   setTimeout(march, 20);
+// }
+
+// march();
+ 
+
+
+//    渐变
+// function draw() {
+//   var ctx = document.getElementById('canvas').getContext('2d');
+//   var lingrad = ctx.createLinearGradient(0,0,0,150);
+//   lingrad.addColorStop(0, '#00ABEB');
+//   lingrad.addColorStop(0.5, '#fff');
+//   lingrad.addColorStop(0.5, '#26C000');
+//   lingrad.addColorStop(1, '#fff');
+
+//   var lingrad2 = ctx.createLinearGradient(0,50,0,95);
+//   lingrad2.addColorStop(0.5, '#000');
+//   lingrad2.addColorStop(1, 'red');
+
+//   ctx.fillStyle = lingrad;
+//   ctx.fillStyle = lingrad2;
+//   ctx.fillRect(10,10,130,130);
+// }
+// draw();
+
+
+
+</script>
+</body>
+</html>
