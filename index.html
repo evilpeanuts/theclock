@@ -22,11 +22,18 @@
 </head>
 <body>
    <!-- 画布的大小只能通过 属性设置 不要用css -->
-   
+
 	<canvas id="canvas" width="600" height="600" strokeStyle="green"></canvas>
 	<canvas id="canvas1" width="600" height="600" ></canvas>
 
 <script>
+    window.onmousedown = function () {
+				 if (window.event) {
+						 if (event.button == 2) {
+								return false;
+						 }
+				 }
+		 }
    var canvas=document.querySelector("#canvas");
    var ctx=canvas.getContext("2d");
 
@@ -47,7 +54,7 @@
    // ctx.closePath();
 
    // ctx.strokeRect(250,450,100,100);
-   
+
    // ctx.beginPath();
    // ctx.arc(50,250,50,0,(Math.PI/180)*90);
    // ctx.fill();
@@ -58,7 +65,7 @@
    // ctx.lineTo(300,350);
    // ctx.moveTo(350,300);
    // ctx.arc(300,300,50,0,(Math.PI/180)*360);
-  
+
 
    // ctx.quadraticCurveTo(220,300,300,250);
    // ctx.moveTo(300,350);
@@ -106,7 +113,7 @@
    // ctx.restore();
 
    function r(deg){
-   return (Math.PI/180)*deg;  
+   return (Math.PI/180)*deg;
    }
    function shenglueqian(x,y){
    ctx.save();
@@ -116,7 +123,7 @@
    }
    function shengluehou(s){
    	if(s=='fill'){
-   	   ctx.fill();	
+   	   ctx.fill();
    	}else{
    	   ctx.stroke();
    	}
@@ -125,7 +132,7 @@
    ctx.restore();
    }
 
-   
+
    // 表
 
    function drawwatch(){
@@ -175,7 +182,7 @@
    ctx.rotate(r(6));
    }
    shengluehou();
-   
+
    // 时
    now=new Date();
    var ms=now.getMilliseconds();
@@ -194,7 +201,7 @@
    ctx.lineTo(0,5);
    shengluehou();
 
-   // 分 
+   // 分
    var deg=360*((m*60+s)/3600);
    shenglueqian();
    ctx.rotate(r(deg));
@@ -260,13 +267,13 @@ draw();
 //   radgrad.addColorStop(0, '#A7D30C');
 //   radgrad.addColorStop(0.9, '#019F62');
 //   radgrad.addColorStop(1, 'rgba(1,159,98,0)');
-  
+
 //   var radgrad2 = ctx.createRadialGradient(105,105,20,112,120,50);
 //   radgrad2.addColorStop(0, '#FF5F98');
 //   radgrad2.addColorStop(0.75, '#FF0188');
 //   radgrad2.addColorStop(1, 'rgba(255,1,136,0)');
 
-  
+
 //   // ctx.fillRect(0,0,150,150);
 //   ctx.fillStyle = radgrad2;
 //   ctx.fillRect(0,0,150,150);
@@ -292,16 +299,16 @@ draw();
    // shengluehou();
 
    // shenglueqian(100,50);
-   // ctx.arc(75,75,4,0,r(360)); 
-   // ctx.moveTo(300,300); 
+   // ctx.arc(75,75,4,0,r(360));
+   // ctx.moveTo(300,300);
    // ctx.arc(300,300,4,0,r(360));
-   // ctx.moveTo(75,300); 
-   // ctx.arc(75,300,4,0,r(360)); 
-   // ctx.moveTo(300,75); 
+   // ctx.moveTo(75,300);
+   // ctx.arc(75,300,4,0,r(360));
+   // ctx.moveTo(300,75);
    // ctx.arc(300,75,4,0,r(360));
    // shengluehou('fill');
-  
-  
+
+
 
 // var offset = 0;
 
@@ -322,7 +329,7 @@ draw();
 // }
 
 // march();
- 
+
 
 
 //    渐变
